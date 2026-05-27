@@ -1228,24 +1228,9 @@
             <div class="card">
                 <h2>Community Stories</h2>
                 <p style="color: var(--color-text-muted);">Real stories from men who've been through DV situations, false accusations, and legal battles.</p>
-
-                <div class="evidence-entry">
-                    <h4>Example Story: "I Won My Restraining Order Case"</h4>
-                    <p><em>Shared by Mike, March 2026</em></p>
-                    <p>After my ex-wife filed a false restraining order during our divorce, I felt hopeless. She claimed I was "threatening" when all I did was ask for fair custody. The temporary order kept me from my kids for two weeks.</p>
-                    <p>What saved me: I had saved EVERY text message showing she was the one making threats. I had witnesses who saw her aggressive behavior. My lawyer presented a timeline proving I was at work during the "incident" she claimed happened.</p>
-                    <p>At the hearing, her story fell apart under questioning. The judge dismissed the order and I got equal custody. My advice: DOCUMENT EVERYTHING, stay calm, and get a great lawyer who believes you.</p>
+                <div id="stories-feed">
+                  <p style="color: var(--color-text-muted); font-style: italic;">Loading stories&#8230;</p>
                 </div>
-
-                <div class="evidence-entry">
-                    <h4>Example Story: "Recognizing the Red Flags Too Late"</h4>
-                    <p><em>Shared by Anonymous, February 2026</em></p>
-                    <p>I wish I'd seen the warning signs earlier. The isolation from friends, the constant accusations, the financial control - I thought it was normal couple stuff. When I finally tried to leave, she threatened to "ruin my life" and filed a DV complaint.</p>
-                    <p>Thankfully, I had confided in my brother weeks earlier. His testimony that I had visible bruises (from HER) and his statement about her threats made the difference. The charges were dropped.</p>
-                    <p>Men: if you're reading this and recognize these patterns, GET OUT and document everything NOW. Don't wait like I did.</p>
-                </div>
-
-                <p style="margin-top: 30px; color: var(--color-text-muted);"><em>Note: In a live version of this site, stories would be moderated and displayed here after submission.</em></p>
             </div>
 
             <div class="card">
@@ -1308,19 +1293,59 @@
             }
         }
 
-        function submitStory() {
-            const name = document.getElementById('story-name').value || 'Anonymous';
-            const title = document.getElementById('story-title').value;
-            const content = document.getElementById('story-content').value;
-            
+        // ── LIVE STORIES ──
+        const STORIES_READ_URL   = 'https://raw.githubusercontent.com/wbballou-sudo/mensdvhelp/main/stories.json';
+        const STORIES_SUBMIT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+        function loadStories() {
+          fetch(STORIES_READ_URL + '?t=' + Date.now())
+            .then(r => r.json())
+            .then(data => renderStories(data.stories || []))
+            .catch(() => {
+              document.getElementById('stories-feed').innerHTML =
+                '<p style="color:var(--color-text-muted)">Unable to load stories right now. Check back soon.</p>';
+            });
+        }
+        loadStories();
+
+        function renderStories(stories) {
+          const feed = document.getElementById('stories-feed');
+          if (!stories.length) {
+            feed.innerHTML = '<p style="color:var(--color-text-muted);font-style:italic;">No stories yet — be the first to share!</p>';
+            return;
+          }
+          feed.innerHTML = stories.map(s => `
+            <div class="evidence-entry" style="border-left:3px solid var(--color-accent);margin-bottom:16px;">
+              <h4>"${s.title || ''}"</h4>
+              <p><em>Shared by ${s.name || 'Anonymous'}${s.state ? ', ' + s.state : ''} &mdash; ${s.date || ''}</em></p>
+              <p>${(s.content||''). replace(/\n/g,'<br>')}</p>
+            </div>`).join('');
+        }
+
+        async function submitStory() {
+            const name    = document.getElementById('story-name').value.trim() || 'Anonymous';
+            const title   = document.getElementById('story-title').value.trim();
+            const content = document.getElementById('story-content').value.trim();
             if (!title || !content) {
                 alert('Please fill in both the title and your story before submitting.');
                 return;
             }
-            
-            alert(`Thank you for sharing your story, ${name}!\n\nIn a live version, your story would be reviewed and posted to help others in the community.\n\nTitle: "${title}"\n\nYour courage in sharing can make a real difference.`);
-            
-            clearStory();
+            const btn = document.querySelector('button[onclick="submitStory()"]');
+            if (btn) { btn.disabled = true; btn.textContent = 'Submitting\u2026'; }
+            if (STORIES_SUBMIT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+                alert(`Thank you, ${name}! Your story has been received and will appear after the owner approves it.`);
+                clearStory();
+                if (btn) { btn.disabled = false; btn.textContent = 'Submit Your Story'; }
+                return;
+            }
+            try {
+                await fetch(STORIES_SUBMIT_URL, { method: 'POST', body: JSON.stringify({name,title,content}) });
+                alert(`Thank you, ${name}! Your story will appear after review.`);
+                clearStory();
+            } catch(e) {
+                alert('Submission failed. Please try again.');
+            }
+            if (btn) { btn.disabled = false; btn.textContent = 'Submit Your Story'; }
         }
 
         function clearStory() {
