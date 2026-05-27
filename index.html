@@ -1295,7 +1295,7 @@
 
         // ── LIVE STORIES ──
         const STORIES_READ_URL   = 'https://raw.githubusercontent.com/wbballou-sudo/mensdvhelp/main/stories.json';
-        const STORIES_SUBMIT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+        const STORIES_SUBMIT_URL = 'https://script.google.com/macros/s/AKfycby13dFUwD_sBt6dx9ZyrJDxPAv2D9DOib7G1zuxdIVI-pT0hni_3xr_WwC4ht02XfM/exec';
 
         function loadStories() {
           fetch(STORIES_READ_URL + '?t=' + Date.now())
@@ -1332,7 +1332,7 @@
             }
             const btn = document.querySelector('button[onclick="submitStory()"]');
             if (btn) { btn.disabled = true; btn.textContent = 'Submitting\u2026'; }
-            if (STORIES_SUBMIT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+            if (STORIES_SUBMIT_URL === 'https://script.google.com/macros/s/AKfycby13dFUwD_sBt6dx9ZyrJDxPAv2D9DOib7G1zuxdIVI-pT0hni_3xr_WwC4ht02XfM/exec') {
                 alert(`Thank you, ${name}! Your story has been received and will appear after the owner approves it.`);
                 clearStory();
                 if (btn) { btn.disabled = false; btn.textContent = 'Submit Your Story'; }
