@@ -1005,7 +1005,7 @@
                     </div>
                 </div>
 
-                <button class="btn" onclick="alert('In a real application, this would generate a downloadable incident log template.')">Download Incident Log Template</button>
+                <button class="btn" onclick="downloadIncidentLog()">Download Incident Log Template</button>
             </div>
 
             <div class="card">
@@ -1295,6 +1295,72 @@
 
         // ── LIVE STORIES ──
         const STORIES_READ_URL   = 'https://raw.githubusercontent.com/wbballou-sudo/mensdvhelp/main/stories.json';
+
+        // ── INCIDENT LOG DOWNLOAD ──
+        function downloadIncidentLog() {
+            const template = [
+              "MEN'S DV RESOURCE HUB — INCIDENT LOG",
+              "Generated: " + new Date().toLocaleString(),
+              "==================================================",
+              "",
+              "INSTRUCTIONS: Fill out one section per incident.",
+              "Save this file and keep copies in multiple places.",
+              "",
+              "==================================================",
+              "INCIDENT #1",
+              "==================================================",
+              "Date/Time:        ",
+              "Location:         ",
+              "What Happened:    ",
+              "",
+              "Witnesses:        ",
+              "Evidence on Hand: ",
+              "Injuries/Damage:  ",
+              "Police Involved:  Yes / No",
+              "Report Number:    ",
+              "--------------------------------------------------",
+              "",
+              "==================================================",
+              "INCIDENT #2",
+              "==================================================",
+              "Date/Time:        ",
+              "Location:         ",
+              "What Happened:    ",
+              "",
+              "Witnesses:        ",
+              "Evidence on Hand: ",
+              "Injuries/Damage:  ",
+              "Police Involved:  Yes / No",
+              "Report Number:    ",
+              "--------------------------------------------------",
+              "",
+              "==================================================",
+              "INCIDENT #3",
+              "==================================================",
+              "Date/Time:        ",
+              "Location:         ",
+              "What Happened:    ",
+              "",
+              "Witnesses:        ",
+              "Evidence on Hand: ",
+              "Injuries/Damage:  ",
+              "Police Involved:  Yes / No",
+              "Report Number:    ",
+              "--------------------------------------------------",
+              "",
+              "Add more sections as needed.",
+              "Keep this log private and share only with your attorney."
+            ].join("\n");
+
+            const blob = new Blob([template], { type: 'text/plain;charset=utf-8' });
+            const url  = URL.createObjectURL(blob);
+            const a    = document.createElement('a');
+            a.href     = url;
+            a.download = 'incident-log-template.txt';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
+        }
 
         function loadStories() {
           fetch(STORIES_READ_URL + '?t=' + Date.now())
