@@ -4,7 +4,188 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Men's Domestic Violence & Legal Defense Resource Hub</title>
+    <!-- Google AdSense: replace ca-pub-XXXXXXXXXXXXXXXX with your Publisher ID from adsense.google.com -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
     <style>
+
+        /* ── MONETIZATION STYLES ── */
+        .ad-slot {
+            background: var(--color-bg-secondary);
+            border: 1px dashed rgba(148,163,184,0.3);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            margin: 18px 0;
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+        }
+        .affiliate-box {
+            background: linear-gradient(135deg, #1e3a4f 0%, #1e293b 100%);
+            border: 1px solid #38bdf8;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 18px 0;
+        }
+        .affiliate-box h3 { color: #38bdf8; margin-bottom: 10px; font-size: 1rem; }
+        .affiliate-box p { color: var(--color-text-secondary); font-size: 0.9rem; margin-bottom: 14px; }
+        .affiliate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 12px;
+            margin: 14px 0;
+        }
+        .affiliate-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(148,163,184,0.15);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+        .affiliate-card h4 { color: var(--color-text-primary); font-size: 0.9rem; margin-bottom: 6px; }
+        .affiliate-card p { font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 10px; line-height: 1.4; }
+        .affiliate-card a {
+            display: inline-block;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 7px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+        .affiliate-card a:hover { background: #0284c7; color: #fff; }
+        .donate-bar {
+            background: linear-gradient(135deg, #14532d 0%, #166534 100%);
+            border: 1px solid #22c55e;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .donate-bar-text h3 { color: #22c55e; margin-bottom: 4px; font-size: 1rem; }
+        .donate-bar-text p { color: #bbf7d0; font-size: 0.85rem; margin: 0; }
+        .donate-btn {
+            background: #22c55e;
+            color: #fff;
+            border: none;
+            padding: 11px 26px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .donate-btn:hover { background: #16a34a; }
+        .premium-box {
+            background: linear-gradient(135deg, #2d1b00 0%, #1e293b 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .badge-premium {
+            background: #f59e0b;
+            color: #1a1a1a;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .premium-box h3 { color: #fbbf24; font-size: 1.2rem; margin-bottom: 8px; }
+        .premium-box p { color: var(--color-text-secondary); font-size: 0.9rem; margin-bottom: 16px; }
+        .price { font-size: 2rem; font-weight: 800; color: #f59e0b; margin: 8px 0; }
+        .price span { font-size: 1rem; font-weight: 400; color: var(--color-text-muted); }
+        .buy-btn {
+            background: #f59e0b;
+            color: #1a1a1a;
+            border: none;
+            padding: 13px 32px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .buy-btn:hover { background: #d97706; color: #fff; }
+        .attorney-dir {
+            background: var(--color-bg-secondary);
+            border: 1px solid rgba(148,163,184,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 18px 0;
+        }
+        .attorney-dir h3 { color: var(--color-text-primary); margin-bottom: 6px; }
+        .attorney-listing {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(148,163,184,0.15);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .attorney-listing.sponsored { border-color: #f59e0b; }
+        .attorney-badge {
+            background: #f59e0b;
+            color: #1a1a1a;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .attorney-info { flex: 1; min-width: 160px; }
+        .attorney-info strong { color: var(--color-text-primary); display: block; margin-bottom: 3px; }
+        .attorney-info span { color: var(--color-text-muted); font-size: 0.82rem; }
+        .attorney-cta a {
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 8px 18px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .attorney-cta a:hover { background: #0284c7; color: #fff; }
+        .list-your-firm {
+            background: rgba(56,189,248,0.06);
+            border: 1px dashed #38bdf8;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .list-your-firm p { color: var(--color-text-muted); font-size: 0.85rem; margin: 0; }
+        .list-your-firm a {
+            background: transparent;
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            padding: 7px 16px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
         :root {
             --color-bg-primary: #0f172a;
             --color-bg-secondary: #1e293b;
@@ -407,6 +588,9 @@
         <div class="container">
             <h1>Men's DV Resource Hub</h1>
             <p class="tagline">Support, Resources, and Legal Guidance for Men Facing Domestic Violence and False Accusations</p>
+            <div style="margin-top:14px;">
+              <a class="donate-btn" href="https://www.paypal.com/donate/?business=wbballou%40gmail.com&currency_code=USD" target="_blank" rel="noopener">💚 Support This Resource</a>
+            </div>
         </div>
     </header>
 
@@ -423,6 +607,11 @@
 
         <!-- HOME SECTION -->
         <section id="home" class="section active">
+
+            <!-- AdSense banner slot (activates once you add your Publisher ID) -->
+            <div class="ad-slot">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </div>
             <div class="card">
                 <h2>You Are Not Alone</h2>
                 <p>If you're a man dealing with domestic violence, false accusations, restraining orders, or navigating a difficult legal situation, this resource hub is here to help. <strong>1 in 10 men experience domestic violence</strong> in their lifetime, yet resources and support are often limited.</p>
@@ -453,6 +642,25 @@
                 <div class="success-box">
                     <strong>Important:</strong> You have the right to defend yourself, present evidence, and challenge false allegations. This site will help you understand how.
                 </div>
+            </div>
+
+            <!-- PREMIUM GUIDE -->
+            <div class="premium-box">
+                <span class="badge-premium">PREMIUM GUIDE</span>
+                <h3>"How to Document Everything and Win Your Case"</h3>
+                <p>A complete step-by-step PDF guide for men facing DV accusations, restraining orders, or custody battles. Evidence collection, attorney selection, court prep, and mistakes to avoid.</p>
+                <div class="price">$14.99 <span>instant PDF download</span></div>
+                <a class="buy-btn" href="https://buy.stripe.com/YOUR_STRIPE_LINK" target="_blank" rel="noopener" onclick="alert('Guide coming soon! Check back shortly.'); return false;">Get the Guide →</a>
+                <p style="font-size:0.78rem;color:#94a3b8;margin-top:10px;">30-day money-back guarantee &bull; Instant download</p>
+            </div>
+
+            <!-- DONATE BAR -->
+            <div class="donate-bar">
+                <div class="donate-bar-text">
+                    <h3>💚 This site is free — keep it that way</h3>
+                    <p>Your support helps cover hosting, legal research, and keeping these resources updated.</p>
+                </div>
+                <a class="donate-btn" href="https://www.paypal.com/donate/?business=wbballou%40gmail.com&currency_code=USD" target="_blank" rel="noopener">Donate via PayPal</a>
             </div>
 
             <div class="card">
@@ -552,6 +760,25 @@
 
         <!-- LEGAL DEFENSE SECTION -->
         <section id="legal-defense" class="section">
+
+            <!-- AFFILIATE: THERAPY -->
+            <div class="affiliate-box">
+                <h3>🗣 Get Support — Talk to a Licensed Therapist</h3>
+                <p>Men in legal situations face serious emotional stress. Online therapy is private, affordable, and works from your phone or computer.</p>
+                <div class="affiliate-grid">
+                    <div class="affiliate-card">
+                        <h4>BetterHelp</h4>
+                        <p>Largest online therapy platform. Match with a licensed therapist in 48 hours. Text, audio, or video.</p>
+                        <a href="https://www.betterhelp.com" target="_blank" rel="noopener">Start Today →</a>
+                    </div>
+                    <div class="affiliate-card">
+                        <h4>Talkspace</h4>
+                        <p>Flexible plans starting at $69/week. Private messaging or live video sessions with licensed therapists.</p>
+                        <a href="https://www.talkspace.com" target="_blank" rel="noopener">Learn More →</a>
+                    </div>
+                </div>
+                <p style="font-size:0.75rem;color:#64748b;margin-top:8px;">Affiliate disclosure: we may earn a commission if you sign up, at no extra cost to you.</p>
+            </div>
             <div class="card">
                 <h2>Defending Against False Accusations of Domestic Violence</h2>
                 <p>False accusations can destroy lives, careers, and families. Here's how to fight back:</p>
@@ -923,6 +1150,35 @@
 
         <!-- DOCUMENTATION SECTION -->
         <section id="documentation" class="section">
+
+            <!-- AFFILIATE: EVIDENCE GEAR -->
+            <div class="affiliate-box">
+                <h3>📷 Recommended Documentation Equipment</h3>
+                <p>The right equipment helps build an airtight case. These are commonly recommended for documentation purposes.</p>
+                <div class="affiliate-grid">
+                    <div class="affiliate-card">
+                        <h4>Dash Cam</h4>
+                        <p>Time-stamped, GPS-enabled recording for vehicle confrontations and commutes.</p>
+                        <a href="https://www.amazon.com/s?k=dash+cam+front+rear+gps&tag=mensdvhelp-20" target="_blank" rel="noopener">View on Amazon →</a>
+                    </div>
+                    <div class="affiliate-card">
+                        <h4>Home Security Camera</h4>
+                        <p>Indoor/outdoor cameras for home documentation. Check local recording laws first.</p>
+                        <a href="https://www.amazon.com/s?k=home+security+camera+indoor&tag=mensdvhelp-20" target="_blank" rel="noopener">View on Amazon →</a>
+                    </div>
+                    <div class="affiliate-card">
+                        <h4>Voice Recorder</h4>
+                        <p>Pocket-sized digital recorder, long battery. Check 1-party consent laws in your state.</p>
+                        <a href="https://www.amazon.com/s?k=small+digital+voice+recorder&tag=mensdvhelp-20" target="_blank" rel="noopener">View on Amazon →</a>
+                    </div>
+                    <div class="affiliate-card">
+                        <h4>Legal Defense Books</h4>
+                        <p>Books on false accusations, custody battles, and restraining order defense strategies.</p>
+                        <a href="https://www.amazon.com/s?k=false+accusations+domestic+violence+men&tag=mensdvhelp-20" target="_blank" rel="noopener">Browse on Amazon →</a>
+                    </div>
+                </div>
+                <p style="font-size:0.75rem;color:#64748b;margin-top:8px;">Amazon affiliate links: we earn a small commission on purchases at no extra cost to you.</p>
+            </div>
             <div class="card">
                 <h2>Evidence Documentation Guide</h2>
                 <p>Proper documentation can make or break your case. Here's what to preserve and how:</p>
@@ -1047,6 +1303,43 @@
 
         <!-- RESOURCES SECTION -->
         <section id="resources" class="section">
+
+            <!-- ATTORNEY DIRECTORY -->
+            <div class="attorney-dir">
+                <h3>⚖️ Attorney Directory — DV Defense Specialists</h3>
+                <p style="color:var(--color-text-muted);font-size:0.85rem;margin-bottom:16px;">Attorneys and services that handle domestic violence defense, restraining orders, and custody cases for men.</p>
+
+                <div class="attorney-listing sponsored">
+                    <span class="attorney-badge">FEATURED</span>
+                    <div class="attorney-info">
+                        <strong>LegalMatch — Find a DV Defense Attorney</strong>
+                        <span>Free matching service. Get connected with attorneys in your area within 24 hours.</span>
+                    </div>
+                    <div class="attorney-cta"><a href="https://www.legalmatch.com" target="_blank" rel="noopener">Get Matched Free →</a></div>
+                </div>
+
+                <div class="attorney-listing sponsored">
+                    <span class="attorney-badge">FEATURED</span>
+                    <div class="attorney-info">
+                        <strong>Avvo — Attorney Reviews & Free Consultations</strong>
+                        <span>Read verified attorney reviews and get a free 15-minute consultation from a local attorney.</span>
+                    </div>
+                    <div class="attorney-cta"><a href="https://www.avvo.com" target="_blank" rel="noopener">Find an Attorney →</a></div>
+                </div>
+
+                <div class="attorney-listing">
+                    <div class="attorney-info">
+                        <strong>National Coalition for Men (NCFM)</strong>
+                        <span>Attorney referrals specifically for men's rights and domestic violence defense cases.</span>
+                    </div>
+                    <div class="attorney-cta"><a href="https://ncfm.org" target="_blank" rel="noopener">Visit NCFM →</a></div>
+                </div>
+
+                <div class="list-your-firm">
+                    <p>💼 <strong>Are you a family law or DV defense attorney?</strong> Get listed here and reach men who need representation right now.</p>
+                    <a href="mailto:wbballou@gmail.com?subject=Attorney Directory Listing Request&body=Name:%0AFirm:%0ALocation:%0ASpecialty:%0AWebsite:%0APhone:" target="_blank">List Your Firm — $99/mo</a>
+                </div>
+            </div>
             <div class="card">
                 <h2>Crisis Hotlines & Support</h2>
                 <div class="resource-grid">
@@ -1247,6 +1540,15 @@
                 </div>
             </div>
         </section>
+
+        <!-- BOTTOM DONATE BAR -->
+        <div class="donate-bar" style="margin:24px 0;">
+            <div class="donate-bar-text">
+                <h3>💚 Help Keep This Resource Free</h3>
+                <p>This site is built and maintained by a survivor. Every dollar helps keep it online and updated for men who need it.</p>
+            </div>
+            <a class="donate-btn" href="https://www.paypal.com/donate/?business=wbballou%40gmail.com&currency_code=USD" target="_blank" rel="noopener">Donate via PayPal</a>
+        </div>
 
         <footer>
             <p><strong>Disclaimer:</strong> This website provides general information and is not a substitute for legal advice. Every situation is unique. Always consult with a licensed attorney in your jurisdiction for advice specific to your case.</p>
