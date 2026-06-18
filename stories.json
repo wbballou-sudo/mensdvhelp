@@ -19,6 +19,26 @@
       "date": "February 2026",
       "likes": 41,
       "approved": true
+    },
+    {
+      "id": 8,
+      "name": "Bob Smith",
+      "state": "Maine",
+      "title": "My Experience",
+      "content": "This is my story about finding help and resources.",
+      "date": "June 2026",
+      "likes": 0,
+      "approved": true
+    },
+    {
+      "id": 9,
+      "name": "Tim",
+      "state": "Maine",
+      "title": "Great site",
+      "content": "I love this site",
+      "date": "June 2026",
+      "likes": 0,
+      "approved": true
     }
   ]
 }
