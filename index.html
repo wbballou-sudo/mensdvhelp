@@ -648,7 +648,8 @@
             </div>
             <div class="card">
                 <h2>You Are Not Alone</h2>
-                <p>If you're a man dealing with domestic violence, false accusations, restraining orders, or navigating a difficult legal situation, this resource hub is here to help. <strong>1 in 10 men experience domestic violence</strong> in their lifetime, yet resources and support are often limited.</p>
+                <p>Most men charged with domestic violence have already been victims of it — from that same woman — multiple times. They just never called the police. Men are far less likely to report abuse than women, which is exactly why it looks like men are the primary abusers. <strong>They're not.</strong> Women are abusing men at rates that never show up in the statistics, because men stay silent.</p>
+                <p style="margin-top:10px;color:#38bdf8;font-weight:600;">That silence ends here. This site gives you the tools to protect yourself and fight back — legally and confidently.</p>
                 
                 <div class="info-box">
                     <strong>This site provides:</strong>
@@ -660,6 +661,33 @@
                         <li>A community space to share your story</li>
                     </ul>
                 </div>
+            </div>
+
+            <!-- UNIQUE FEATURE: Personalized Next Steps -->
+            <div class="card" style="border:2px solid #38bdf8;">
+                <h2 style="color:#38bdf8;">🎯 What Should I Do Right Now?</h2>
+                <p style="font-size:0.95em;color:#94a3b8;margin-bottom:16px;">Answer 3 quick questions and get your personal action plan — specific to your situation, not generic advice.</p>
+
+                <div id="quiz-step-1">
+                    <p style="font-weight:600;margin-bottom:12px;">What's happening right now?</p>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        <button class="btn btn-secondary" style="text-align:left;padding:14px;" onclick="quizAnswer(1,'incident')">🚨 There was just an incident or altercation</button>
+                        <button class="btn btn-secondary" style="text-align:left;padding:14px;" onclick="quizAnswer(1,'accused')">⚖️ I've been accused or charged with DV</button>
+                        <button class="btn btn-secondary" style="text-align:left;padding:14px;" onclick="quizAnswer(1,'restrain')">📄 A restraining order has been filed against me</button>
+                        <button class="btn btn-secondary" style="text-align:left;padding:14px;" onclick="quizAnswer(1,'pattern')">🔄 She's been abusing me for a while — what do I do?</button>
+                    </div>
+                </div>
+
+                <div id="quiz-step-2" style="display:none;">
+                    <p style="font-weight:600;margin-bottom:12px;">Did you call 911?</p>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-secondary" style="flex:1;padding:14px;" onclick="quizAnswer(2,'yes')">✅ Yes I called</button>
+                        <button class="btn btn-secondary" style="flex:1;padding:14px;" onclick="quizAnswer(2,'no')">❌ No, I didn't</button>
+                    </div>
+                </div>
+
+                <div id="quiz-result" style="display:none;margin-top:14px;"></div>
+                <button id="quiz-reset" style="display:none;margin-top:14px;background:none;border:1px solid #475569;color:#94a3b8;padding:8px 16px;border-radius:8px;cursor:pointer;" onclick="resetQuiz()">← Start Over</button>
             </div>
 
             <div class="card">
@@ -1764,7 +1792,99 @@
         console.log('%c🛡️ Men\'s DV Resource Hub', 'font-size: 20px; font-weight: bold; color: #38bdf8;');
         console.log('Supporting men through domestic violence situations and legal challenges.');
         console.log('If you need immediate help, call the National Domestic Violence Hotline: 1-800-799-7233');
-    </script>
+    
+        // ── Personalized Quiz ──
+        let quizState = {};
+        function quizAnswer(step, val) {
+            quizState['step'+step] = val;
+            if (step === 1) {
+                if (val === 'incident') {
+                    document.getElementById('quiz-step-1').style.display = 'none';
+                    document.getElementById('quiz-step-2').style.display = 'block';
+                } else {
+                    showQuizResult(val, null);
+                }
+            } else {
+                document.getElementById('quiz-step-2').style.display = 'none';
+                showQuizResult(quizState.step1, val);
+            }
+        }
+
+        function showQuizResult(situation, called911) {
+            const plans = {
+                incident_yes: {
+                    title: "Good — you called. Here's what to do next:",
+                    steps: [
+                        "Get the officer's name and badge number. Ask for the incident report number.",
+                        "Take photos RIGHT NOW — any marks, property damage, the scene.",
+                        "Write down a full timeline while it's fresh — what was said, what happened, any witnesses.",
+                        "Do NOT contact her. Even 'are you okay?' can be used against you.",
+                        "Call a criminal defense attorney today — even if no charges have been filed yet.",
+                        "Save every text, voicemail, and email from her going forward."
+                    ], color: '#22c55e'
+                },
+                incident_no: {
+                    title: "⚠️ You didn't call — here's how to protect yourself now:",
+                    steps: [
+                        "If it just happened and it's safe — call 911 NOW. It's not too late.",
+                        "If time has passed: document everything immediately. Photos, written timeline, witnesses.",
+                        "She may call first and flip the story. Get ahead of it — call an attorney today.",
+                        "Do NOT reach out to her or talk to mutual friends about it.",
+                        "Start saving all communication from her — screenshot everything.",
+                        "Next time: call first, immediately, every time. The first caller is almost always believed."
+                    ], color: '#ef4444'
+                },
+                accused: {
+                    title: "You've been accused — here's your plan:",
+                    steps: [
+                        "Say nothing to police without an attorney present. You have the right to remain silent — use it.",
+                        "Hire a criminal defense attorney who handles DV cases before your first court date.",
+                        "Gather every piece of evidence that contradicts her story: texts, emails, receipts, GPS, witnesses.",
+                        "Do not contact her under any circumstances.",
+                        "Tell a trusted friend or family member what's happening so you have a witness to your state of mind.",
+                        "Start logging everything in the Documentation section of this site."
+                    ], color: '#f59e0b'
+                },
+                restrain: {
+                    title: "Restraining order filed — immediate steps:",
+                    steps: [
+                        "Read every word of the order. Know exactly what you can and cannot do.",
+                        "Do NOT violate it — not even briefly, not even to get your belongings. One violation ends your case.",
+                        "Hire a family law attorney immediately — you have the right to contest it at the hearing.",
+                        "Gather evidence of your character: witnesses, photos, text history showing her behavior.",
+                        "If children are involved, contact a custody attorney today.",
+                        "Document every time she contacts you — she may try to bait you into a violation."
+                    ], color: '#a855f7'
+                },
+                pattern: {
+                    title: "She's been abusing you — here's how to start protecting yourself:",
+                    steps: [
+                        "Start documenting NOW — every incident, date, time, what happened, any witnesses or injuries.",
+                        "Take photos of injuries immediately after they happen, even if minor.",
+                        "The next time there's an incident, call 911. You are the victim. Act like it.",
+                        "Talk to an attorney — you may be able to file a protective order yourself.",
+                        "Confide in someone you trust who can corroborate your account.",
+                        "Check the Warning Signs section — you may be in more danger than you realize."
+                    ], color: '#38bdf8'
+                }
+            };
+
+            const key = situation === 'incident' ? 'incident_' + called911 : situation;
+            const plan = plans[key] || plans.accused;
+            const html = '<div style="border-left:3px solid ' + plan.color + ';padding-left:16px;"><p style="font-weight:700;color:' + plan.color + ';margin-bottom:12px;">' + plan.title + '</p><ol style="padding-left:20px;line-height:2;">' + plan.steps.map(s => '<li style="margin-bottom:6px;">' + s + '</li>').join('') + '</ol></div>';
+            document.getElementById('quiz-result').innerHTML = html;
+            document.getElementById('quiz-result').style.display = 'block';
+            document.getElementById('quiz-reset').style.display = 'inline-block';
+        }
+
+        function resetQuiz() {
+            quizState = {};
+            document.getElementById('quiz-step-1').style.display = 'block';
+            document.getElementById('quiz-step-2').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'none';
+            document.getElementById('quiz-reset').style.display = 'none';
+        }
+</script>
 </body>
 </html>
 
