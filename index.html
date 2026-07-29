@@ -1690,8 +1690,10 @@
             }
         }
 
-        // ── LIVE STORIES ──
-        const STORIES_READ_URL   = 'https://raw.githubusercontent.com/wbballou-sudo/mensdvhelp/main/stories.json';
+        // ── LIVE STORIES (Supabase) ──
+        const SUPABASE_URL = 'https://vdowulnuniwxvplvsgil.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkb3d1bG51bml3eHZwbHZzZ2lsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NDMzNjcsImV4cCI6MjA5NzIxOTM2N30.5zOSE2N6Daxnb01psEnXlzqVBJpZRkNubd3Q7M3do5M';
+        const STORIES_TABLE_URL = SUPABASE_URL + '/rest/v1/stories';
 
         // ── INCIDENT LOG DOWNLOAD ──
         function downloadIncidentLog() {
@@ -1760,9 +1762,14 @@
         }
 
         function loadStories() {
-          fetch(STORIES_READ_URL + '?t=' + Date.now())
+          fetch(STORIES_TABLE_URL + '?select=id,name,state,title,content,date,likes&approved=eq.true&order=id.desc', {
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+            }
+          })
             .then(r => r.json())
-            .then(data => renderStories(data.stories || []))
+            .then(data => renderStories(Array.isArray(data) ? data : []))
             .catch(() => {
               document.getElementById('stories-feed').innerHTML =
                 '<p style="color:var(--color-text-muted)">Unable to load stories right now. Check back soon.</p>';
@@ -1784,8 +1791,6 @@
             </div>`).join('');
         }
 
-        const STORIES_SUBMIT_URL = 'https://mensdvhelp.pplx.app/port/5000/api/stories';
-
         async function submitStory() {
             const name    = document.getElementById('story-name').value.trim() || 'Anonymous';
             const title   = document.getElementById('story-title').value.trim();
@@ -1797,10 +1802,22 @@
             const btn = document.querySelector('button[onclick="submitStory()"]');
             if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
             try {
-                const resp = await fetch(STORIES_SUBMIT_URL, {
+                const resp = await fetch(STORIES_TABLE_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, title, content, state: '' })
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        name,
+                        title,
+                        content,
+                        state: '',
+                        date: new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' }),
+                        approved: false
+                    })
                 });
                 if (!resp.ok) throw new Error('Server error');
                 alert('Thank you, ' + name + '! Your story has been received and will appear after review.');
